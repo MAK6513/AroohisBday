@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#251c4d">
+  <meta name="description" content="A tiny birthday adventure made for Aroohi.">
+  <title>Aroohi and the Little Birthday Universe</title>
+  <style>
+    :root{--ink:#332458;--muted:#716387;--cream:#fff8f0;--peach:#ffcfaf;--rose:#f8a7c3;--lilac:#c9b8ff;--gold:#ffd878;--sky:#211a48;--paper:#fffaf5;--shadow:0 24px 80px #1e123c35}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:ui-rounded,"Avenir Next",Avenir,"Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 15%,#684887 0,transparent 25%),radial-gradient(circle at 90% 10%,#795399 0,transparent 25%),linear-gradient(165deg,#241d4f,#34275e 55%,#60446f);overflow-x:hidden}
+    button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f8b746;outline-offset:4px}::selection{background:#f8c9df;color:#35234f}
+    .sky{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}.sky:before,.sky:after{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff16;border-radius:50%;left:-190px;top:35%}.sky:after{width:620px;height:620px;left:auto;right:-290px;top:-240px}.twinkle{position:absolute;left:var(--x);top:var(--y);color:#ffedc5;opacity:.55;font-size:var(--s);animation:glow var(--d) ease-in-out infinite alternate;animation-delay:var(--delay)}@keyframes glow{to{opacity:1;transform:scale(1.45)}}
+    .shell{position:relative;z-index:1;max-width:1200px;margin:auto;padding:22px clamp(18px,4vw,48px) 55px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff6e9}.brand{font-size:.85rem;letter-spacing:.22em;font-weight:900}.top-actions{display:flex;align-items:center;gap:10px}.tiny-btn{border:1px solid #ffffff65;color:white;background:#ffffff1b;padding:9px 14px;border-radius:99px;font-size:.76rem;font-weight:800;transition:.2s}.tiny-btn:hover{background:#ffffff36;transform:translateY(-2px)}.creator{display:none}body.edit-mode .creator{display:inline-block}
+    .progress-wrap{max-width:700px;margin:26px auto 16px;min-height:54px}.progress{display:flex;justify-content:space-between;gap:5px;align-items:center;position:relative}.progress:before{content:"";position:absolute;left:8%;right:8%;height:2px;top:18px;background:#ffffff55}.step{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:42px;color:#e4d8f5;font-size:.68rem;font-weight:800;text-align:center}.step b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#6b5a87;border:2px solid #ffffff7c;font-size:1rem;box-shadow:0 2px 10px #1c173e80}.step.on b{background:#ffdab0;color:#3c2b56;box-shadow:0 0 0 5px #ffffff24,0 3px 18px #ffca9a80}.step.done b{background:#b1e6d3;color:#365451}.scene{min-height:660px;display:grid;align-items:center;padding:clamp(16px,3vw,36px);position:relative}
+    .paper{width:min(100%,910px);margin:auto;position:relative;background:var(--paper);border:2px solid #fff;border-radius:34px;box-shadow:var(--shadow),inset 0 0 0 8px #f8e9e4;overflow:hidden}.paper:after{content:"";position:absolute;inset:13px;border:1px dashed #d8c5df;border-radius:25px;pointer-events:none}.paper-inner{position:relative;z-index:1;padding:clamp(28px,5vw,65px)}.eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:.75rem;font-weight:900;color:#9d739d;margin:0 0 15px}.display{font-family:Georgia,"Times New Roman",serif;font-weight:normal;line-height:1.06;letter-spacing:-.045em;font-size:clamp(3.1rem,7.5vw,6.4rem);margin:0}.display em{font-style:italic;color:#aa6595}.heading{font-family:Georgia,"Times New Roman",serif;font-weight:normal;letter-spacing:-.038em;font-size:clamp(2.3rem,5vw,4.1rem);line-height:1.1;margin:8px 0 15px}.lead{font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.6;max-width:620px;color:#67577c}.note{font-size:.88rem;color:var(--muted);line-height:1.5}.note.cream{color:#ece4f3}.hero-grid,.chapter-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}.hero-grid{min-height:510px}.hero-text{position:relative;z-index:2}.hero-art{height:440px;position:relative;display:grid;place-items:center}.orbit{width:min(100%,380px);aspect-ratio:1;border:2px dashed #e9b6d9;border-radius:50%;position:relative;animation:rotate 30s linear infinite}.orbit:before{content:"✦";position:absolute;top:10%;left:10%;font-size:45px;color:#f6ad73}.orbit:after{content:"✳";position:absolute;bottom:4%;right:12%;font-size:50px;color:#bd9bd5}@keyframes rotate{to{transform:rotate(360deg)}}.planet{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle at 33% 28%,#fffaf7,#f5bbd5 55%,#c7a3da);box-shadow:inset -18px -23px 26px #a982c67c,0 28px 55px #d9a7c48a;display:grid;place-items:center;font-size:7rem;transform:rotate(-10deg)}.planet:after{content:"";position:absolute;width:340px;height:77px;border:14px solid #f8d9a8a8;border-radius:50%;transform:rotate(-25deg);box-shadow:0 1px 0 #fff9}.floating{position:absolute;font-size:2.4rem;filter:drop-shadow(0 7px 5px #87648b55);animation:bob 3s ease-in-out infinite alternate}.float-a{left:7%;top:10%}.float-b{right:0;top:28%;animation-delay:.8s}.float-c{left:5%;bottom:15%;animation-delay:1.4s}@keyframes bob{to{transform:translateY(-17px) rotate(9deg)}}
+    .btn{border:0;border-radius:999px;background:#412b68;color:white;box-shadow:0 9px 0 #24184a,0 14px 25px #21163c30;padding:15px 25px;font-weight:900;letter-spacing:.01em;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px}.btn:hover{transform:translateY(-3px);box-shadow:0 12px 0 #24184a,0 18px 28px #21163c35}.btn:active{transform:translateY(5px);box-shadow:0 4px 0 #24184a}.btn:disabled{cursor:not-allowed;opacity:.55;transform:none;box-shadow:0 6px 0 #24184a}.btn.light{background:#fff3e4;color:#4d376c;box-shadow:0 7px 0 #eac8c8}.btn.light:hover{box-shadow:0 10px 0 #eac8c8}.btn-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}.tag{display:inline-flex;align-items:center;gap:7px;background:#f8e8ef;color:#8e527a;border-radius:99px;padding:9px 13px;font-size:.82rem;font-weight:800;margin:8px 0 10px}.divider{height:1px;background:#e8d9df;margin:24px 0}
+    .chapter .paper-inner{min-height:590px}.chapter-head{max-width:680px}.game-panel{background:linear-gradient(145deg,#372b69,#57417c);border-radius:26px;color:#fff;padding:25px;position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px #fff4,0 16px 25px #37275925}.game-panel:before{content:"✧   ✦       ·         ✳     ·        ✦       ✧";color:#ffffff35;position:absolute;top:10px;left:20px;right:0;letter-spacing:1.2em;font-size:1.1rem;white-space:nowrap;pointer-events:none}.game-panel>*{position:relative}.score{font-size:.8rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#f6d8b4}.hint{padding:12px 15px;border-radius:15px;background:#ffffff1c;color:#f9f0ff;font-size:.88rem;line-height:1.4;margin-top:15px}.success{background:#ecfbf1;color:#326951;border-radius:15px;padding:14px 17px;font-weight:800;margin:20px 0 0;line-height:1.5}.success:empty{display:none}.action-footer{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-top:24px}.sparkles{position:relative;height:260px;border-radius:20px;background:radial-gradient(circle at 50% 70%,#806098,#493673 70%);overflow:hidden}.sparkle-btn{position:absolute;border:0;background:none;font-size:clamp(2rem,5vw,3.3rem);text-shadow:0 2px 16px #fffbd7;transition:.2s;animation:bob 2.4s ease-in-out infinite alternate;filter:drop-shadow(0 0 10px #ffe9ac)}.sparkle-btn:hover{transform:scale(1.25)!important}.sparkle-btn.collected{animation:none;opacity:.28;transform:scale(.6);pointer-events:none}.sparkle-btn:nth-child(2){animation-delay:.4s}.sparkle-btn:nth-child(3){animation-delay:.8s}.sparkle-btn:nth-child(4){animation-delay:1.1s}.sparkle-btn:nth-child(5){animation-delay:1.5s}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:17px}.memory-card{min-height:116px;border-radius:18px;border:2px solid #ffffff69;background:#78609b;color:#fff;font-size:2.6rem;box-shadow:0 5px 0 #322450;transition:.22s;transform-style:preserve-3d}.memory-card:hover:not(:disabled){transform:translateY(-4px)}.memory-card.open{background:#fff7e9;color:#4c3a6f;transform:rotateY(8deg)}.memory-card.matched{background:#c1e9dc;color:#315449;box-shadow:0 5px 0 #79ae9c}.memory-card:disabled{cursor:default}.memory-log{min-height:50px;font-size:.9rem;line-height:1.5;color:#fff5e5;padding:12px 0 0}
+    .cake-area{display:grid;place-items:center;min-height:255px;overflow:hidden;background:radial-gradient(circle at 50% 70%,#fde4d2,#fbeeea 68%);border-radius:20px;margin:12px 0}.cake{position:relative;width:185px;height:190px;filter:drop-shadow(0 18px 6px #b3819c35)}.cake-plate{position:absolute;bottom:10px;left:-20px;width:225px;height:24px;background:#fff;border:4px solid #e4b6d5;border-radius:50%}.cake-base{position:absolute;bottom:31px;width:185px;height:90px;border-radius:13px 13px 35px 35px;background:var(--cake);box-shadow:inset -18px 0 0 #00000012}.cake-base:after{content:"";position:absolute;top:36px;left:0;right:0;height:9px;background:#ffffff88}.cake-icing{position:absolute;bottom:105px;left:-3px;width:191px;height:35px;background:var(--icing);border-radius:45% 45% 20% 20%;box-shadow:0 7px 0 #ffffff66}.cake-icing:after{content:"";position:absolute;left:15px;top:18px;width:19px;height:27px;border-radius:0 0 12px 12px;background:var(--icing);box-shadow:30px 4px 0 var(--icing),62px -2px 0 var(--icing),100px 2px 0 var(--icing),138px -2px 0 var(--icing)}.cake-topper{position:absolute;bottom:134px;left:50%;transform:translateX(-50%);font-size:3.9rem;line-height:1;z-index:2}.opt-label{font-weight:900;font-size:.77rem;text-transform:uppercase;letter-spacing:.13em;margin:13px 0 8px}.options{display:flex;flex-wrap:wrap;gap:7px}.option{background:#ffffff22;border:1px solid #ffffff89;border-radius:12px;color:white;padding:9px 12px;font-weight:800;font-size:.84rem}.option.selected{background:#ffdaae;color:#352650;border-color:#fff;box-shadow:0 0 0 2px #ffdaae77}
+    .garden{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.flower{min-height:106px;border:2px solid #ffffff67;background:#ffffff1c;border-radius:22px;color:#fff;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:.2s}.flower span{font-size:2.3rem}.flower:hover{transform:rotate(-3deg) translateY(-4px)}.flower.picked{background:#ffebc2;color:#57386d;border-color:#fff;transform:translateY(-7px)}.flower:disabled:not(.picked){opacity:.5}.flowers-selected{min-height:36px;font-size:.88rem;color:#fce9c5}
+    .constellation{width:100%;height:auto;display:block;background:radial-gradient(circle at 50% 42%,#66518c,#29204d 80%);border-radius:20px;overflow:visible}.constellation line{stroke:#ffd485;stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 8px #ffda9a)}.star-node{cursor:pointer}.star-node circle{fill:#fff5d7;stroke:#fff;stroke-width:2;filter:drop-shadow(0 0 9px #ffe4a4);transition:.2s}.star-node:hover circle,.star-node:focus circle{r:20;fill:#ffcc7e}.star-node.visited circle{fill:#ffb7d1}.star-node text{font-weight:900;fill:#372454;font-size:15px;text-anchor:middle;dominant-baseline:central;pointer-events:none}.star-node:focus{outline:none}.star-node:focus-visible circle{stroke:#fb8ba4;stroke-width:5}.constellation .small-star{fill:#ffffff88}.shake{animation:shake .3s}@keyframes shake{25%,75%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+    .finale{background:linear-gradient(140deg,#fff9ef,#ffe7ec 55%,#eee5ff)}.finale .paper-inner{text-align:center;max-width:760px;margin:auto}.finale .eyebrow{color:#a36a8a}.seal{display:inline-grid;place-items:center;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 30% 20%,#ffefbe,#f4b5c9);font-size:4.6rem;box-shadow:0 0 0 12px #ffffff9e,0 16px 40px #bd799777;margin:25px auto}.letter{background:#ffffffd9;padding:clamp(20px,4vw,38px);border-radius:20px;box-shadow:0 10px 35px #9a72901c;text-align:left;line-height:1.7;font-family:Georgia,serif;font-size:clamp(1rem,2vw,1.22rem);white-space:pre-wrap}.signature{font-family:Georgia,serif;font-style:italic;font-size:1.5rem;color:#a35c83;margin:20px 0}.finale .btn-row{justify-content:center}.confetti{position:fixed;inset:0;pointer-events:none;z-index:10;overflow:hidden}.confetti i{position:absolute;top:-30px;width:8px;height:14px;border-radius:3px;background:var(--c);left:var(--x);animation:fall var(--t) linear forwards;transform:rotate(var(--r))}@keyframes fall{to{top:110vh;transform:translateX(var(--drift)) rotate(780deg)}}
+    footer{text-align:center;color:#ebdcf6;font-size:.8rem;letter-spacing:.05em;padding-top:6px}.modal-backdrop{position:fixed;inset:0;background:#211638d9;z-index:20;display:grid;place-items:center;padding:18px;overflow:auto}.modal{background:#fffaf6;border-radius:25px;padding:clamp(22px,4vw,36px);max-width:650px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 25px 80px #1c123f88}.modal h2{font-family:Georgia,serif;font-size:2rem;margin:0 0 8px}.field{display:block;margin:16px 0;color:#6c597a;font-size:.84rem;font-weight:900}.field input,.field textarea{display:block;border:2px solid #d9cce1;border-radius:12px;background:#fff;width:100%;padding:11px 13px;margin-top:6px;color:#352753;font-weight:500}.field textarea{min-height:84px;resize:vertical}.modal .btn-row{margin-top:16px}.modal .btn{font-size:.84rem;min-height:45px;padding:11px 18px}
+    @media(max-width:760px){.hero-grid,.chapter-grid{grid-template-columns:1fr}.hero-art{height:240px;grid-row:1}.planet{width:160px;height:160px;font-size:4.4rem}.planet:after{width:210px;height:50px;border-width:9px}.orbit{width:210px}.floating{font-size:1.8rem}.hero-grid{gap:0;text-align:center}.hero-text .lead{margin-inline:auto}.hero-text .btn-row{justify-content:center}.scene{min-height:620px;padding:18px 0}.chapter .paper-inner{min-height:0}.chapter-grid{gap:14px}.step span{display:none}.step b{width:34px;height:34px}.progress:before{top:16px}.game-panel{padding:20px}.heading{font-size:2.45rem}.display{font-size:3.8rem}.action-footer{align-items:stretch}.action-footer .btn{width:100%}}@media(max-width:430px){.shell{padding:15px 12px 35px}.brand{font-size:.68rem;letter-spacing:.13em}.tiny-btn{padding:8px 10px;font-size:.7rem}.paper-inner{padding:25px}.cards{gap:7px}.memory-card{min-height:88px}.garden{gap:7px}.flower{min-height:95px}.top-actions{gap:4px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    .pigeon-cameo{border:0;background:transparent;cursor:pointer}.pigeon-cameo:focus-visible{outline:3px solid #d589ac;border-radius:50%}
+    /* Ten-chapter additions */
+    .creator-note{margin:24px 0 0;padding:15px 18px;border-radius:17px;background:#f8e8f1;border-left:5px solid #dba0be;color:#70476c;line-height:1.55;font-size:.94rem;font-weight:700}
+    .creator-note span{margin-right:6px}.progress-wrap{max-width:850px}.step{min-width:50px}.step b{width:34px;height:34px;font-size:.85rem}.progress:before{top:16px}.step span{font-size:.62rem}
+    .postcard-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}.postcard{min-height:165px;padding:17px;border-radius:17px;border:2px dashed #ffdfbd;background:#fff7e9;color:#58406b;box-shadow:0 6px 0 #6d4b80;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;font-size:.9rem;font-weight:800;line-height:1.35;transition:.2s}.postcard:hover:not(:disabled){transform:rotate(-2deg) translateY(-4px)}.postcard.opened{background:#ffe6e8;border-style:solid;box-shadow:0 4px 0 #ad7095;cursor:default}.postcard-icon{font-size:2.4rem;line-height:1.1}
+    .balloon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;justify-items:center;margin:35px 0 25px}.balloon{width:76px;height:92px;border:none;border-radius:50% 50% 46% 46%;background:#f5b6d7;box-shadow:inset -12px -10px 0 #00000013,0 8px 20px #291b4777;color:#fff;font-size:2.5rem;font-weight:900;position:relative;animation:bob 2.5s ease-in-out infinite alternate;transition:.2s}.balloon:after{content:'│';position:absolute;top:82px;left:50%;font-size:2rem;color:#e8c4d9;transform:translateX(-50%)}.balloon-1{background:#c6b7fa;animation-delay:.3s}.balloon-2{background:#89d6c2;animation-delay:.6s}.balloon-3{background:#ffc977;animation-delay:.9s}.balloon:hover:not(:disabled){filter:brightness(1.12)}.balloon.popped{animation:none;border-radius:16px;width:66px;height:66px;background:#fff1d7;color:#664479;box-shadow:0 6px 0 #9474a2;cursor:default}.balloon.popped:after{display:none}.balloon-word{text-align:center;font-weight:900;color:#ffe7af;min-height:30px}
+    .beat-pattern{text-align:center;letter-spacing:.18em;font-size:clamp(1.5rem,4vw,2.6rem);background:#ffffff1d;border-radius:17px;padding:14px;margin:18px 0}.beat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.beat{min-height:100px;border:2px solid #ffffff78;border-radius:22px;background:#ffffff25;font-size:3rem;box-shadow:0 7px 0 #251a4b;transition:.14s}.beat:hover,.beat.lit{background:#ffe6af;transform:translateY(-5px) scale(1.04)}.preview{margin-top:15px}
+    .branch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.branch{border:2px solid #ffffff9c;border-radius:18px;background:#ffffff20;color:#fff;min-height:150px;padding:12px;font-weight:900;box-shadow:0 6px 0 #241943;transition:.2s}.branch span{display:block;font-size:3rem}.branch:hover{background:#ffe0bb;color:#4b306b;transform:translateY(-4px)}.chosen-path{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chosen-path span{border-radius:99px;background:#ffffff2d;padding:8px 12px;font-size:.82rem}.storybook{padding:25px;margin:20px 0;border-radius:18px;background:#fff5e9;color:#563b6a;font:1.28rem/1.6 Georgia,serif}.quiz-question{font:normal clamp(1.5rem,3vw,2.2rem)/1.2 Georgia,serif;margin:28px 0}.quiz-options{display:grid;gap:10px}.quiz-option{text-align:left;border:2px solid #ffffff8c;border-radius:14px;padding:13px 17px;background:#ffffff21;color:#fff;font-weight:850}.quiz-option:hover{background:#ffffff45}.quiz-option.correct{background:#a5e5cb;color:#304c42}.quiz-option.incorrect{background:#f8bac7;color:#5c3450}
+    .finale .letter{max-height:none;line-height:1.76;font-size:clamp(1rem,1.8vw,1.18rem)}.finale .paper-inner{max-width:820px}.finale .tag{white-space:normal}
+    .modal details{border:1px solid #e5d5e5;border-radius:13px;padding:12px;margin:13px 0}.modal summary{font-weight:900;cursor:pointer}.modal details[open] summary{margin-bottom:10px}.modal textarea[rows="17"]{min-height:300px}
+    @media(max-width:760px){.step{min-width:0;flex:1}.step b{width:27px;height:27px;font-size:.7rem}.progress:before{top:13px}.progress-wrap{margin:18px auto 4px}.balloon-grid{grid-template-columns:repeat(3,1fr);row-gap:30px}.balloon{width:64px;height:78px}.balloon:after{top:70px}.branch-grid{grid-template-columns:1fr}.branch{min-height:90px}.branch span{display:inline;margin-right:12px}.postcard{min-height:155px}.beat{min-height:76px;font-size:2rem}}
+    @media(max-width:430px){.postcard-grid{gap:8px}.postcard{padding:9px;min-height:152px;font-size:.8rem}.postcard-icon{font-size:1.9rem}.beat-grid{gap:6px}.balloon-grid{gap:20px 5px}}
+  </style>
+</head>
+<body>
+  <!-- This JSON is the only part you need to personalize. The built-in editor can update it and download a ready-to-publish copy. -->
+  <script id="birthday-config" type="application/json">{"name": "Aroohi", "from": "Aahil", "intro": "AROOHIII! This is YOUR birthday universe: ten stops, a very suspicious pigeon, a tiny original birthday beat, one apology flower, and a final letter I really wanted you to read. Ready for the chaos? 🎁", "memories": ["The car-window incident 🚗 I had gone to buy you something. When I came back, I put my face RIGHT next to your window and scared you so much. The flower was my apology. I am still sorryyy 🌸", "The pre-event rescue 💆 My hair had its own plans the night before an event. You gave me a head massage, and the next day I felt ready to go. How did you DO that??", "Your music-and-meme corner 🎧 Limp Bizkit belongs on your playlist, and the AI pigeon meme from Instagram absolutely belongs in this tiny birthday universe."], "chapterNotes": ["Aroohi, do not worry: these stars are MUCH less likely to jumpscare you than I was at the car window. — Aahil", "I have brought the car-window flower AND the legendary hair rescue into our tiny scrapbook. Yes, I remember both. — Aahil", "The cake is yours to design. Consider it my second apology for the window incident, after the flower. — Aahil", "A flower for the bouquet... and one very specific flower for my car-window apology. 🌸 — Aahil", "Postcards for the girl with the Limp Bizkit playlist and the internet's most unexpected pigeon. — Aahil", "The balloons are about to reveal your name. I asked them to keep your nickname a secret. They did not listen. — Aahil", "I made an ORIGINAL tiny beat for your music-loving self. No, it is not Limp Bizkit. I know my limits 😂 — Aahil", "Your birthday world can have a concert, a flower shop, or the headquarters of that ridiculous AI pigeon. — Aahil", "The birthday committee is asking VERY important questions about flowers, hair rescues, and pigeons. — Aahil", "One last constellation for you, Aroohi. I saved the longest message for the endddd. — Aahil"], "postcards": ["From the car-window universe: nobody is allowed to jumpscare you today. Flowers are permitted. 🌸", "From your next event: may every hair-related emergency be solved by your mysterious head-massage superpower. 💆", "From your future playlist: more songs you LOVE, more loud moments, and a place for Limp Bizkit. 🎧", "From pigeon headquarters: the AI pigeon has approved this birthday message. We do not know who gave it that authority. 🐦"], "finalNote": "AROOHIII,\n\nHAPPYYYY BIRTHDAYYYY!!! 🎉🎂✨\n\nOkay, first of all: YES, I really made you an entire ten-chapter birthday game. I was going to write you a normal message, but then I thought that was FAR too sensible. A proper birthday message for you clearly needed stars, a cake you could design, flowers, balloons, a questionable quiz, a little music game, and a pigeon that has absolutely no business being here. So here we areee. I hope you had fun getting all the way to this letter.\n\nI had to put the car-window story in here because I still cannot believe I did that 😭. I got out of the car to buy you something, came back, and somehow decided the best way to announce my return was to put my face RIGHT next to your window. You saw me and got so scared. I felt SO bad. The flower I gave you as an apology was very real, but I am now adding a second, extremely over-the-top apology in the form of this whole birthday universe. Please note that this game contains zero surprise faces at car windows. I have learned my lessonnn.\n\nAnd then there was the day before my event when my hair was just refusing to cooperate. You gave me a head massage, and somehow the next day I felt ready to go. I still do not understand the science behind that. I am choosing to believe you unlocked some secret power that the rest of us have not been told about. That memory makes me laugh, but it also reminds me of something genuinely good: you took a little stressful moment and made it easier. Thank you for that.\n\nI wanted the game to sound a bit like your world, too. Obviously, there had to be music, because you LOVE it. I know my tiny made-up birthday beat is not exactly Limp Bizkit, but at least it is an original soundtrack to your own ridiculous adventure. And the AI pigeon meme on Instagram HAD to make an appearance. I cannot fully explain why a pigeon deserves a place in a birthday game, but honestly, the more I thought about it, the more correct it felt. It is weird, it is funny, and that is enough for meee 🐦.\n\nI also wanted the game to remind you that birthdays are made of more than one big moment. Sometimes it is the song you play again. Sometimes it is a flower after a very unnecessary jumpscare. Sometimes it is the random story you end up telling months later and laughing about AGAIN. All those small, odd, happy little pieces count. I hope this year gives you more of them than you can keep track of.\n\nI hope you get days that feel exciting, and ordinary days that still have something lovely tucked into them. I hope you find new music you cannot stop playing, jokes that make absolutely no sense to anyone else, chances to try things you have been curious about, and those moments where you suddenly realize, “WAIT, this is actually a really good day.” I hope you feel proud of the small wins as well as the huge ones. And I hope you get to make choices that feel like YOUR choices, just like you did in your tiny birthday universe.\n\nThank you for the stories we already have: the car-window scare, the apology flower, and the totally unexplained hair rescue. I am looking forward to the new funny stories we have not even stumbled into yet. Today, though, your only assignment is to enjoy YOUR birthday. Accept your imaginary crown. Play the loud music. Laugh at your favorite chaotic pigeon. Have the cake exactly how you want it. You have earned a day that feels completely youuu.\n\nSo, from the very bottom of this extremely serious, scientifically accurate birthday game: HAPPYYYY BIRTHDAYYYY, AROOHIII!!! Have the BESTTT day and a year full of music, laughs, flowers, good surprises, and a reasonable number of pigeons.\n\nAnd since you gave me the nickname, I have to say it at least once: HAPPYYYY BIRTHDAY, PICK ME KUTTIYAAA!!! 😂✨\n\nFrom Aahil", "nickname": "Pick Me Kuttiya"}</script>
+  <div class="sky" id="sky" aria-hidden="true"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="topbar"><div class="brand">✦ A LITTLE BIRTHDAY UNIVERSE</div><div class="top-actions"><button class="tiny-btn creator" id="editBtn" type="button">✏️ Edit story</button><button class="tiny-btn" id="soundBtn" type="button" aria-pressed="false">♫ Sound off</button></div></header>
+    <div class="progress-wrap" id="progress"></div>
+    <main class="scene" id="app" aria-live="polite"></main>
+    <footer>Made with a little imagination and a lot of birthday confetti ✨</footer>
+  </div>
+  <script>
+  (() => {
+    'use strict';
+    const $ = (s, root=document) => root.querySelector(s);
+    const app = $('#app');
+    const configNode = $('#birthday-config');
+    const defaults = JSON.parse(configNode.textContent);
+    let config = {...defaults};
+    const key = 'aroohi-birthday-quest-v2';
+    const initial = {stage:0, stars:0, choices:{base:0,icing:0,topper:0}, flowers:[], postcards:[], balloons:[], rhythmStep:0, pathChoices:[], quizStep:0, line:0};
+    let state;
+    try { state = {...initial, ...JSON.parse(localStorage.getItem(key) || '{}')}; } catch { state={...initial}; }
+    if (!Number.isInteger(state.stage) || state.stage<0 || state.stage>11) state={...initial};
+    state.choices={...initial.choices,...state.choices};
+    for (const field of ['flowers','postcards','balloons','pathChoices']) if (!Array.isArray(state[field])) state[field]=[];
+    let sound=false, audioContext=null, busy=false, flipped=[], matched=[], memoryDeck=[], memoryMessage='';
+    const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const escapeHTML = (v) => String(v ?? '').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    const base=[{name:'Vanilla',color:'#ebc88a',emoji:'🍰'},{name:'Chocolate',color:'#a56e60',emoji:'🍫'},{name:'Strawberry',color:'#f5a2ab',emoji:'🍓'}];
+    const icing=[{name:'Pink',color:'#ffb1d1'},{name:'Lavender',color:'#c6aeeb'},{name:'Cream',color:'#fff1d0'}];
+    const topper=[{name:'Star',emoji:'⭐'},{name:'Cherry',emoji:'🍒'},{name:'Flower',emoji:'🌼'}];
+    const flowers=[{name:'Joy',emoji:'🌻'},{name:'Curiosity',emoji:'🌷'},{name:'Kindness',emoji:'🌸'},{name:'Courage',emoji:'🌺'},{name:'Laughter',emoji:'🌼'},{name:'Wonder',emoji:'🪻'}];
+    const points=[[65,211],[159,64],[248,179],[342,70],[438,207]];
+    function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch{}}
+    function tone(freq=620,duration=.12){if(!sound)return;try{audioContext??=new (window.AudioContext||window.webkitAudioContext)();const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.type='sine';osc.frequency.setValueAtTime(freq,audioContext.currentTime);gain.gain.setValueAtTime(.08,audioContext.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+duration);osc.connect(gain).connect(audioContext.destination);osc.start();osc.stop(audioContext.currentTime+duration)}catch{}}
+    function melody(){[523,659,784,1046].forEach((freq,i)=>setTimeout(()=>tone(freq,.24),i*170));}
+    function confetti(amount=65){if(reduceMotion)return;const layer=$('#confetti');layer.innerHTML='';for(let i=0;i<amount;i++){const piece=document.createElement('i');piece.style.cssText=`--x:${Math.random()*100}%;--c:${['#ffd879','#fac2d8','#bfe6d7','#c6b1fa','#fff6e4'][i%5]};--t:${3+Math.random()*3}s;--r:${Math.random()*360}deg;--drift:${Math.random()*200-100}px;animation-delay:${Math.random()*.7}s`;layer.appendChild(piece)}setTimeout(()=>layer.replaceChildren(),6800)}
+    function goto(stage){state.stage=stage;save();render();window.scrollTo({top:0,behavior:reduceMotion?'instant':'smooth'});tone(780);if(stage===11){confetti(150);melody()}}
+    function progress(){const labels=['Stars','Memories','Cake','Garden','Postcards','Balloons','Music','Choices','Quiz','Sky'];$('#progress').innerHTML=state.stage===0?'':`<div class="progress" aria-label="Journey progress">${labels.map((label,i)=>`<div class="step ${state.stage>i+1?'done':state.stage===i+1?'on':''}" ${state.stage===i+1?'aria-current="step"':''}><b>${state.stage>i+1?'✓':['✦','▣','♨','✿','✉','●','♫','◇','?','✧'][i]}</b><span>${label}</span></div>`).join('')}</div>`}
+    function scene(inner,extra=''){app.innerHTML=`<section class="paper ${extra}"><div class="paper-inner">${inner}</div></section>`;progress()}
+    function chapterHead(number,title,lead){return `<div class="chapter-head"><p class="eyebrow">Chapter ${number} of 10 · ${escapeHTML(config.name)}'s birthday quest</p><h1 class="heading">${title}</h1><p class="lead">${lead}</p></div>`}
+    function creatorNote(index){return `<p class="creator-note"><span aria-hidden="true">💬</span> ${escapeHTML(config.chapterNotes?.[index]||'A little birthday note for you.')} </p>`}
+    function continueButton(label,next,ready){return `<div class="action-footer"><span class="note">${ready?'A little piece of the surprise is yours. ✨':'Take your time. The universe can wait.'}</span><button class="btn" id="next" type="button" ${ready?'':'disabled'}>${label} <span aria-hidden="true">↗</span></button></div>`}
+    function render(){
+      if(state.stage===0) return cover();
+      if(state.stage===1) return stars();
+      if(state.stage===2) return memories();
+      if(state.stage===3) return cake();
+      if(state.stage===4) return garden();
+      if(state.stage===5) return postcardsGame();
+      if(state.stage===6) return balloonGame();
+      if(state.stage===7) return rhythmGame();
+      if(state.stage===8) return chooseStory();
+      if(state.stage===9) return quizGame();
+      if(state.stage===10) return skyGame();
+      return ending();
+    }
+    function cover(){scene(`<div class="hero-grid"><div class="hero-text"><p class="eyebrow">An invitation, just for you ✉️</p><h1 class="display">Happy birthday,<br><em>${escapeHTML(config.name)}.</em></h1><p class="lead">${escapeHTML(config.intro)}</p><div class="tag">✦ 10 playful chapters · ✧ 1 big surprise</div><div class="btn-row"><button class="btn" id="start" type="button">Open your adventure <span aria-hidden="true">→</span></button></div><p class="note" id="pigeonMessage">Headphones optional. Smiling encouraged. Also, tap the pigeon.</p></div><div class="hero-art" role="img" aria-label="A pastel planet surrounded by birthday stars"><div class="orbit"></div><div class="planet">🎁</div><div class="floating float-a">💫</div><div class="floating float-b">🎈</div><button class="floating float-c pigeon-cameo" id="pigeon" type="button" aria-label="Ask the birthday pigeon">🐦</button></div></div>`);$('#start').onclick=()=>goto(1);$('#pigeon').onclick=()=>{$('#pigeonMessage').textContent=`Pigeon HQ confirms: HAPPYYYY BIRTHDAY, ${config.name.toUpperCase()}! 🐦`;tone(850,.2);confetti(24)}}
+    function stars(){const ready=state.stars>=5;scene(`${chapterHead('01','The sky is missing its sparkle','Five tiny stars wandered away while getting ready for your birthday. Tap them to bring the night back to life.')}<div class="chapter-grid"><div class="game-panel"><div class="score" id="starScore">${Math.min(state.stars,5)} / 5 stars found</div><div class="sparkles" aria-label="Star collecting game">${[[11,17],[68,12],[45,56],[78,65],[15,72]].map((p,i)=>`<button class="sparkle-btn ${i<state.stars?'collected':''}" style="left:${p[0]}%;top:${p[1]}%" data-star="${i}" type="button" aria-label="Collect star ${i+1}" ${i<state.stars?'disabled':''}>⭐</button>`).join('')}</div><div class="hint">Psst... every good story begins with a little bit of light.</div></div><div><div style="font-size:7rem;text-align:center" aria-hidden="true">🌌</div><p class="lead">The stars light up one by one. Somehow, the sky already looks more like a celebration.</p><div class="success" id="starSuccess">${ready?'You found them all! The path to the next little surprise is glowing.':''}</div></div></div>${creatorNote(0)}${continueButton('Follow the trail',2,ready)}`,'chapter');app.querySelectorAll('[data-star]').forEach(b=>b.onclick=()=>{if(b.disabled)return;b.disabled=true;b.classList.add('collected');state.stars++;save();tone(450+state.stars*75);$('#starScore').textContent=`${state.stars} / 5 stars found`;if(state.stars>=5){$('#starSuccess').textContent='You found them all! The path to the next little surprise is glowing.';$('#next').disabled=false;confetti(32)}});$('#next').onclick=()=>goto(2)}
+    function memories(){matched=[];flipped=[];busy=false;memoryMessage='';memoryDeck=[0,0,1,1,2,2].sort(()=>Math.random()-.5);drawMemories()}
+    function drawMemories(){const icons=['🚗','💆','🎧'];const done=matched.length===3;scene(`${chapterHead('02','A pocketful of moments','Match the little keepsakes. Every pair reveals a note tucked away for you.')}<div class="chapter-grid"><div class="game-panel"><div class="score" id="pairScore">${matched.length} / 3 pairs found</div><div class="cards">${memoryDeck.map((id,i)=>`<button class="memory-card ${matched.includes(id)||flipped.includes(i)?'open':''} ${matched.includes(id)?'matched':''}" data-card="${i}" type="button" aria-label="${matched.includes(id)||flipped.includes(i)?icons[id]:'Turn over memory card '+(i+1)}" ${matched.includes(id)?'disabled':''}>${matched.includes(id)||flipped.includes(i)?icons[id]:'✦'}</button>`).join('')}</div><div class="memory-log" id="memoryLog" aria-live="polite">${escapeHTML(memoryMessage||'Choose two cards to turn over.')}</div></div><div><div style="font-size:7rem;text-align:center" aria-hidden="true">💌</div><p class="lead">The nicest things are often tucked into the ordinary moments.</p><div class="success" id="pairSuccess">${done?'All the keepsakes are together. Next stop: something delicious.':''}</div></div></div>${creatorNote(1)}${continueButton('Visit the cake studio',3,done)}`,'chapter');app.querySelectorAll('[data-card]').forEach(b=>b.onclick=()=>flipCard(Number(b.dataset.card)));$('#next').onclick=()=>goto(3)}
+    function flipCard(index){if(busy||matched.includes(memoryDeck[index])||flipped.includes(index))return;flipped.push(index);tone(540);const b=app.querySelector(`[data-card="${index}"]`);b.classList.add('open');b.textContent=['🚗','💆','🎧'][memoryDeck[index]];b.setAttribute('aria-label',b.textContent);if(flipped.length<2)return;busy=true;const [a,c]=flipped;if(memoryDeck[a]===memoryDeck[c]){const id=memoryDeck[a];matched.push(id);memoryMessage=config.memories[id]||'';$('#memoryLog').textContent=memoryMessage;$('#pairScore').textContent=`${matched.length} / 3 pairs found`;flipped=[];busy=false;app.querySelectorAll('[data-card]').forEach(x=>{if(memoryDeck[Number(x.dataset.card)]===id){x.classList.add('matched');x.disabled=true}});tone(800,.22);if(matched.length===3){$('#pairSuccess').textContent='All the keepsakes are together. Next stop: something delicious.';$('#next').disabled=false;confetti(40)}}else{memoryMessage='Not a pair yet. Try another little combination!';$('#memoryLog').textContent=memoryMessage;setTimeout(()=>{if(state.stage!==2)return;for(const i of [a,c]){const card=app.querySelector(`[data-card="${i}"]`);if(card){card.classList.remove('open');card.textContent='✦';card.setAttribute('aria-label',`Turn over memory card ${i+1}`)}}flipped=[];busy=false},780)}}
+    function cakeVisual(){return `<div class="cake" style="--cake:${base[state.choices.base].color};--icing:${icing[state.choices.icing].color}"><div class="cake-plate"></div><div class="cake-base"></div><div class="cake-icing"></div><div class="cake-topper">${topper[state.choices.topper].emoji}</div></div>`}
+    function cake(){scene(`${chapterHead('03','The cake studio','An excellent birthday deserves a cake with your own creative twist. Pick a flavor, icing, and a topper.')}<div class="chapter-grid"><div class="game-panel"><div class="score">Design your birthday cake 🎂</div><p class="opt-label">Cake flavor</p><div class="options" role="group" aria-label="Cake flavor">${base.map((x,i)=>`<button class="option ${state.choices.base===i?'selected':''}" data-choice="base" data-value="${i}" type="button" aria-pressed="${state.choices.base===i}">${x.emoji} ${x.name}</button>`).join('')}</div><p class="opt-label">Icing color</p><div class="options" role="group" aria-label="Icing color">${icing.map((x,i)=>`<button class="option ${state.choices.icing===i?'selected':''}" data-choice="icing" data-value="${i}" type="button" aria-pressed="${state.choices.icing===i}">${['🩷','💜','🤍'][i]} ${x.name}</button>`).join('')}</div><p class="opt-label">The finishing touch</p><div class="options" role="group" aria-label="Cake topper">${topper.map((x,i)=>`<button class="option ${state.choices.topper===i?'selected':''}" data-choice="topper" data-value="${i}" type="button" aria-pressed="${state.choices.topper===i}">${x.emoji} ${x.name}</button>`).join('')}</div></div><div><div class="cake-area" id="cakeArea" aria-label="Your decorated birthday cake" role="img">${cakeVisual()}</div><p class="note">A perfect choice. Actually, every combination is a perfect choice.</p></div></div>${creatorNote(2)}${continueButton('Make a wish and continue',4,true)}`,'chapter');app.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{const kind=b.dataset.choice;state.choices[kind]=Number(b.dataset.value);save();app.querySelectorAll(`[data-choice="${kind}"]`).forEach(x=>{const yes=x===b;x.classList.toggle('selected',yes);x.setAttribute('aria-pressed',String(yes))});$('#cakeArea').innerHTML=cakeVisual();tone(620+Number(b.dataset.value)*90)});$('#next').onclick=()=>{confetti(45);goto(4)}}
+    function garden(){const ready=state.flowers.length>=3;scene(`${chapterHead('04','The garden of good things','Pick three flowers to fill a tiny birthday bouquet. There are no wrong choices, only different kinds of lovely.')}<div class="chapter-grid"><div class="game-panel"><div class="score" id="flowerScore">${state.flowers.length} / 3 flowers picked</div><div class="garden">${flowers.map((x,i)=>`<button class="flower ${state.flowers.includes(i)?'picked':''}" data-flower="${i}" type="button" aria-pressed="${state.flowers.includes(i)}" ${ready&&!state.flowers.includes(i)?'disabled':''}><span>${x.emoji}</span>${x.name}</button>`).join('')}</div><div class="flowers-selected" id="flowersSelected">${ready?'Your bouquet: '+state.flowers.map(i=>flowers[i].name).join(' · '):'Choose three for your bouquet.'}</div></div><div><div style="font-size:7rem;text-align:center" aria-hidden="true">🪴</div><p class="lead">One flower for a wish. One for a smile. And one for all the things you have yet to discover.</p><div class="success" id="flowerSuccess">${ready?'The bouquet is ready. A mailbox has appeared at the edge of the garden.':''}</div></div></div>${creatorNote(3)}${continueButton('Open the mailbox',5,ready)}`,'chapter');app.querySelectorAll('[data-flower]').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.flower);if(state.flowers.includes(i)||state.flowers.length>=3)return;state.flowers.push(i);save();b.classList.add('picked');b.setAttribute('aria-pressed','true');tone(500+state.flowers.length*100);$('#flowerScore').textContent=`${state.flowers.length} / 3 flowers picked`;if(state.flowers.length>=3){$('#flowersSelected').textContent='Your bouquet: '+state.flowers.map(i=>flowers[i].name).join(' · ');$('#flowerSuccess').textContent='The bouquet is ready. A mailbox has appeared at the edge of the garden.';$('#next').disabled=false;app.querySelectorAll('[data-flower]').forEach(x=>{if(!x.classList.contains('picked'))x.disabled=true})}});$('#next').onclick=()=>goto(5)}
+    function postcardsGame(){
+      const icons=['🌤️','🎡','🌙','🎉'];
+      const ready=state.postcards.length>=3;
+      scene(`${chapterHead('05','The postcard mailbox','Four postcards arrived from possible days ahead. Open at least three to read the tiny wishes they carry.')}
+        <div class="game-panel"><div class="score" id="postcardScore">${state.postcards.length} / 3 postcards opened</div>
+        <div class="postcard-grid">${icons.map((icon,i)=>`<button type="button" class="postcard ${state.postcards.includes(i)?'opened':''}" data-postcard="${i}" ${state.postcards.includes(i)?'disabled':''} aria-label="${state.postcards.includes(i)?'Opened postcard':'Open postcard '+(i+1)}"><span class="postcard-icon">${state.postcards.includes(i)?icon:'✉️'}</span><span>${state.postcards.includes(i)?escapeHTML(config.postcards?.[i]||'A little wish for you.'):['Tomorrow','Next month','Somewhere far away','Right now'][i]}</span></button>`).join('')}</div></div>
+        ${creatorNote(4)}${continueButton('Join the balloon parade',6,ready)}`,'chapter');
+      app.querySelectorAll('[data-postcard]').forEach(button=>button.onclick=()=>{
+        const i=Number(button.dataset.postcard);
+        if(state.postcards.includes(i))return;
+        state.postcards.push(i);save();tone(640+i*65);
+        button.classList.add('opened');button.disabled=true;button.setAttribute('aria-label','Opened postcard');
+        button.innerHTML=`<span class="postcard-icon">${icons[i]}</span><span>${escapeHTML(config.postcards?.[i]||'A little wish for you.')}</span>`;
+        $('#postcardScore').textContent=`${state.postcards.length} / 3 postcards opened`;
+        if(state.postcards.length>=3)$('#next').disabled=false;
+      });
+      $('#next').onclick=()=>goto(6);
+    }
+    function balloonGame(){
+      const letters=[...config.name.replace(/\s+/g,'')].slice(0,12);
+      const balloonReveal=`Surprise! The parade says ${config.name}${config.nickname?', a.k.a. '+config.nickname:''}!`;
+      const ready=state.balloons.length>=letters.length;
+      scene(`${chapterHead('06','The balloon parade','These balloons are hiding a VERY familiar name. Pop them all to reveal it, one letter at a time.')}
+        <div class="game-panel"><div class="score" id="balloonScore">${state.balloons.length} / ${letters.length} balloons popped</div>
+        <div class="balloon-grid">${letters.map((letter,i)=>`<button type="button" class="balloon balloon-${i%4} ${state.balloons.includes(i)?'popped':''}" data-balloon="${i}" ${state.balloons.includes(i)?'disabled':''} aria-label="${state.balloons.includes(i)?'Letter '+escapeHTML(letter):'Pop balloon '+(i+1)}">${state.balloons.includes(i)?escapeHTML(letter):'🎈'}</button>`).join('')}</div>
+        <p class="balloon-word" id="balloonWord">${ready?escapeHTML(balloonReveal):'One little pop at a time... ✨'}</p></div>
+        ${creatorNote(5)}${continueButton('Find the birthday beat',7,ready)}`,'chapter');
+      app.querySelectorAll('[data-balloon]').forEach(button=>button.onclick=()=>{
+        const i=Number(button.dataset.balloon);if(state.balloons.includes(i))return;
+        state.balloons.push(i);save();tone(680+i*38);
+        button.classList.add('popped');button.textContent=letters[i];button.disabled=true;
+        button.setAttribute('aria-label','Letter '+letters[i]);
+        $('#balloonScore').textContent=`${state.balloons.length} / ${letters.length} balloons popped`;
+        if(state.balloons.length>=letters.length){$('#balloonWord').textContent=balloonReveal;$('#next').disabled=false;confetti(45)}
+      });
+      $('#next').onclick=()=>goto(7);
+    }
+    const birthdayBeat=[0,2,1,3,0];
+    const beatNotes=[{emoji:'🟡',freq:523},{emoji:'🔵',freq:659},{emoji:'🟣',freq:784},{emoji:'🟢',freq:880}];
+    function rhythmGame(){
+      const ready=state.rhythmStep>=birthdayBeat.length;
+      scene(`${chapterHead('07','The birthday beat','An original little beat for your music-loving self, Aroohi. It is definitely not Limp Bizkit, but it IS yours. Watch the color pattern and play it back.')}
+        <div class="game-panel"><div class="score" id="beatScore">${Math.min(state.rhythmStep,5)} / 5 notes played</div>
+        <div class="beat-pattern" aria-label="Pattern: yellow, purple, blue, green, yellow">🟡 🟣 🔵 🟢 🟡</div>
+        <div class="beat-grid">${beatNotes.map((note,i)=>`<button class="beat beat-${i}" data-note="${i}" type="button" aria-label="${['Yellow','Blue','Purple','Green'][i]} note">${note.emoji}</button>`).join('')}</div>
+        <div class="hint" id="beatHint">${ready?'You did it. Your birthday beat is complete!':'Next note: '+(state.rhythmStep+1)+' of 5. A wrong note starts the pattern again.'}</div>
+        <button type="button" class="tiny-btn preview" id="previewBeat">▶ Play clue</button></div>
+        ${creatorNote(6)}${continueButton('Choose your own story',8,ready)}`,'chapter');
+      app.querySelectorAll('[data-note]').forEach(button=>button.onclick=()=>{
+        if(state.rhythmStep>=birthdayBeat.length)return;
+        const n=Number(button.dataset.note);tone(beatNotes[n].freq,.22);
+        button.classList.add('lit');setTimeout(()=>button.classList.remove('lit'),250);
+        if(n===birthdayBeat[state.rhythmStep]){
+          state.rhythmStep++;save();$('#beatScore').textContent=`${state.rhythmStep} / 5 notes played`;
+          $('#beatHint').textContent=state.rhythmStep>=5?'You did it. Your birthday beat is complete!':`Nice! Now note ${state.rhythmStep+1} of 5.`;
+          if(state.rhythmStep>=5){$('#next').disabled=false;confetti(42)}
+        }else{state.rhythmStep=0;save();$('#beatScore').textContent='0 / 5 notes played';$('#beatHint').textContent='Oops, the beat got tangled. Start from yellow 🟡. You can do it!'}
+      });
+      $('#previewBeat').onclick=()=>birthdayBeat.forEach((n,i)=>setTimeout(()=>{
+        if(state.stage!==7)return;
+        const button=app.querySelector(`[data-note="${n}"]`);
+        if(button){button.classList.add('lit');setTimeout(()=>button.classList.remove('lit'),280)}
+        tone(beatNotes[n].freq,.24);
+      },i*430));
+      $('#next').onclick=()=>goto(8);
+    }
+    const storyChoices=[
+      [{emoji:'🎸',label:'A loud concert'},{emoji:'🌸',label:'A flower market'},{emoji:'🐦',label:'Pigeon headquarters'}],
+      [{emoji:'🥁',label:'A dramatic drum solo'},{emoji:'🌷',label:'An apology flower'},{emoji:'👑',label:'A crowned AI pigeon'}],
+      [{emoji:'🎟️',label:'A concert ticket'},{emoji:'🎵',label:'A new favorite song'},{emoji:'📸',label:'A story to remember'}]
+    ];
+    function chooseStory(){
+      const round=state.pathChoices.length,ready=round>=3;
+      const picked=state.pathChoices.map((choice,i)=>storyChoices[i][choice]);
+      scene(`${chapterHead('08','Choose the next page','What would YOUR very own birthday universe look like? Make three choices and watch your little story appear.')}
+        <div class="game-panel"><div class="score">${ready?'Your story is written ✨':'Choice '+(round+1)+' of 3'}</div>
+        ${ready?`<div class="storybook">And so ${escapeHTML(config.name)} wandered into ${escapeHTML(picked[0].label.toLowerCase())}, discovered ${escapeHTML(picked[1].label.toLowerCase())}, and came home with ${escapeHTML(picked[2].label.toLowerCase())}. The end? Not even close. This is just the beginning. ✨</div>`:
+        `<p class="note cream">${['Where does your adventure begin?','What is waiting there?','What do you take home?'][round]}</p><div class="branch-grid">${storyChoices[round].map((choice,i)=>`<button class="branch" type="button" data-branch="${i}"><span>${choice.emoji}</span>${choice.label}</button>`).join('')}</div>`}
+        <div class="chosen-path">${picked.map(item=>`<span>${item.emoji} ${escapeHTML(item.label)}</span>`).join('')}</div></div>
+        ${creatorNote(7)}${continueButton('Take the very serious quiz',9,ready)}`,'chapter');
+      app.querySelectorAll('[data-branch]').forEach(button=>button.onclick=()=>{state.pathChoices.push(Number(button.dataset.branch));save();tone(750);chooseStory()});
+      $('#next').onclick=()=>goto(9);
+    }
+    const quizQuestions=[
+      {q:'What did I give you after the legendary car-window jumpscare?',options:['A traffic cone','An apology flower','A formal invoice'],answer:1},
+      {q:'What was the mysterious pre-event hair rescue?',options:['Your head massage','A pigeon with a hairbrush','A magic hat'],answer:0},
+      {q:'Who is the unofficial mascot of this birthday universe?',options:['An accountant','A moon-shaped potato','That AI pigeon meme'],answer:2}
+    ];
+    function quizGame(){
+      const ready=state.quizStep>=quizQuestions.length,q=quizQuestions[state.quizStep];
+      scene(`${chapterHead('09','A VERY serious birthday quiz','Three questions. Absolutely no certificates. Maximum silliness. Pick the answer that feels right.')}
+        <div class="game-panel"><div class="score">${ready?'3 / 3 questions answered':`Question ${state.quizStep+1} / 3`}</div>
+        ${ready?'<div class="storybook">Official result: 100% birthday adventure expert. There is just one final constellation to finish. 🏆</div>':`<h2 class="quiz-question">${escapeHTML(q.q)}</h2><div class="quiz-options">${q.options.map((option,i)=>`<button class="quiz-option" type="button" data-answer="${i}">${escapeHTML(option)}</button>`).join('')}</div><div class="hint" id="quizHint">Aroohi, trust your extremely scientific instincts.</div>`}</div>
+        ${creatorNote(8)}${continueButton('Find the final constellation',10,ready)}`,'chapter');
+      app.querySelectorAll('[data-answer]').forEach(button=>button.onclick=()=>{
+        const answer=Number(button.dataset.answer);
+        if(answer===q.answer){state.quizStep++;save();tone(840,.24);button.classList.add('correct');app.querySelectorAll('[data-answer]').forEach(x=>x.disabled=true);$('#quizHint').textContent='CORRECT! The birthday committee approves. 🎉';setTimeout(()=>{if(state.stage===9)quizGame()},600)}
+        else{button.classList.add('incorrect');$('#quizHint').textContent='That would be hilarious, but try another answer 😂';tone(310)}
+      });
+      $('#next').onclick=()=>goto(10);
+    }
+    function constellationMarkup(){let lines='';for(let i=1;i<state.line;i++)lines+=`<line x1="${points[i-1][0]}" y1="${points[i-1][1]}" x2="${points[i][0]}" y2="${points[i][1]}"/>`;return `<svg class="constellation" viewBox="0 0 500 280" role="group" aria-label="Connect the stars in order from one to five">${Array.from({length:35},(_,i)=>`<circle class="small-star" cx="${(i*173+49)%490+5}" cy="${(i*97+30)%260+10}" r="${i%4===0?1.8:1}"/>`).join('')}${lines}${points.map((p,i)=>`<g class="star-node ${i<state.line?'visited':''}" data-node="${i}" role="button" tabindex="0" aria-label="Star ${i+1}${i<state.line?', connected':''}" transform="translate(${p[0]} ${p[1]})"><circle r="16"/><text y="1">${i+1}</text></g>`).join('')}</svg>`}
+    function skyGame(){const ready=state.line>=5;scene(`${chapterHead('10','The last little light','Connect the five stars in order, from 1 to 5. A new constellation is waiting to be found.')}<div class="chapter-grid"><div class="game-panel"><div class="score" id="skyScore">${Math.min(state.line,5)} / 5 stars connected</div><div id="constellationHolder">${constellationMarkup()}</div><div class="hint" id="skyHint">${ready?'You made it. The surprise is ready to open.':'Start with star '+(state.line+1)+'. Tap the numbers in order.'}</div></div><div><div style="font-size:7rem;text-align:center" aria-hidden="true">✨</div><p class="lead">It turns out the whole sky was getting ready to spell out one thing: today is yours.</p><div class="success" id="skySuccess">${ready?'A new constellation appears: The Aroohi. ✨':''}</div></div></div>${creatorNote(9)}${continueButton('Open your birthday surprise',11,ready)}`,'chapter');bindNodes();$('#next').onclick=()=>goto(11)}
+    function bindNodes(){app.querySelectorAll('[data-node]').forEach(node=>{node.onclick=()=>connect(Number(node.dataset.node));node.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();connect(Number(node.dataset.node))}}})}
+    function connect(index){if(state.line>=5)return;if(index!==state.line){const holder=$('#constellationHolder');holder.classList.remove('shake');void holder.offsetWidth;holder.classList.add('shake');$('#skyHint').textContent=`Look for star ${state.line+1} next. You've got this!`;tone(270);return}state.line++;save();tone(560+state.line*100,.19);$('#constellationHolder').innerHTML=constellationMarkup();bindNodes();$('#skyScore').textContent=`${state.line} / 5 stars connected`;$('#skyHint').textContent=state.line>=5?'You made it. The surprise is ready to open.':`Lovely! Now find star ${state.line+1}.`;if(state.line>=5){$('#skySuccess').textContent='A new constellation appears: The Aroohi. ✨';$('#next').disabled=false;confetti(55)}}
+    function ending(){
+      const bouquet=state.flowers.map(i=>flowers[i]?.name).filter(Boolean).join(', ');
+      const route=state.pathChoices.map((n,i)=>storyChoices[i]?.[n]?.emoji||'✨').join(' ');
+      scene(`<p class="eyebrow">The final page · a note just for you</p><div class="seal" aria-hidden="true">🎉</div>
+        <h1 class="heading" style="font-size:clamp(2.8rem,6vw,5rem)">HAPPYYYY birthday,<br>${escapeHTML(config.name)}!</h1>
+        <p class="lead" style="margin-inline:auto">Ten chapters. One birthday universe. A letter that was waiting for you the whole time.</p>
+        <div class="tag">${escapeHTML(base[state.choices.base].name)} cake · ${escapeHTML(bouquet||'a little bouquet')} · ${route||'✨'} · a sky full of stars</div>
+        <div class="letter">${escapeHTML(config.finalNote)}</div>
+        <p class="signature">From ${escapeHTML(config.from)} ✨</p>
+        <div class="btn-row"><button class="btn" id="cardDownload" type="button">⬇ Save the WHOLE birthday letter</button><button class="btn light" id="replay" type="button">↺ Play again</button></div>
+        <p class="note">You can replay your little universe whenever you want.</p>`,'finale');
+      $('#replay').onclick=()=>{state={...initial,choices:{...initial.choices},flowers:[],postcards:[],balloons:[],pathChoices:[]};save();goto(0)};
+      $('#cardDownload').onclick=downloadCard;
+    }
+    function downloadCard(){
+      const canvas=document.createElement('canvas'),width=1200;
+      const c=canvas.getContext('2d');
+      const size=32,lineHeight=48;
+      c.font=`${size}px Georgia, serif`;
+      const lines=wrapText(c,config.finalNote,850);
+      const height=Math.max(1550,830+lines.length*lineHeight+250);
+      canvas.width=width;canvas.height=height;
+      const bg=c.createLinearGradient(0,0,width,height);
+      bg.addColorStop(0,'#fce9ee');bg.addColorStop(1,'#e9e1ff');
+      c.fillStyle=bg;c.fillRect(0,0,width,height);
+      c.fillStyle='#fffaf5';roundRect(c,80,80,1040,height-160,55);c.fill();
+      c.strokeStyle='#e4bfd4';c.lineWidth=3;c.setLineDash([12,12]);roundRect(c,110,110,980,height-220,42);c.stroke();c.setLineDash([]);
+      for(let i=0;i<90;i++){c.fillStyle=['#f4bdcf','#dec4f4','#f7d28e'][i%3];c.beginPath();c.arc(145+(i*391)%910,140+(i*197)%(height-280),i%6===0?5:3,0,Math.PI*2);c.fill()}
+      c.textAlign='center';c.fillStyle='#a26994';c.font='bold 29px system-ui';c.fillText('✦  A LITTLE BIRTHDAY UNIVERSE  ✦',600,225);
+      c.font='110px serif';c.fillText('🎂',600,410);
+      c.fillStyle='#392658';c.font='74px Georgia, serif';c.fillText('HAPPYYYY birthday,',600,540);
+      c.fillStyle='#aa6595';c.font='italic 85px Georgia, serif';c.fillText(config.name+'!',600,640);
+      c.strokeStyle='#e6c9dc';c.lineWidth=2;c.beginPath();c.moveTo(300,700);c.lineTo(900,700);c.stroke();
+      c.fillStyle='#514363';c.font=`${size}px Georgia, serif`;c.textAlign='left';
+      lines.forEach((line,i)=>c.fillText(line,175,775+i*lineHeight));
+      c.textAlign='center';c.fillStyle='#a26994';c.font='italic 43px Georgia, serif';c.fillText('From '+config.from+' ✨',600,height-190);
+      const a=document.createElement('a');a.download=`happy-birthday-${config.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.png`;
+      a.href=canvas.toDataURL('image/png');a.click();tone(850,.22);
+    }
+    function roundRect(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r)}
+    function wrapText(c,text,maxWidth){
+      const lines=[];
+      for(const paragraph of text.split(/\r?\n/)){
+        if(!paragraph.trim()){lines.push('');continue}
+        let line='';
+        for(const word of paragraph.trim().split(/\s+/)){
+          const trial=line?line+' '+word:word;
+          if(c.measureText(trial).width>maxWidth&&line){lines.push(line);line=word}else line=trial;
+        }
+        if(line)lines.push(line);
+      }
+      return lines;
+    }
+    function openEditor(){
+      const backdrop=document.createElement('div');backdrop.className='modal-backdrop';
+      backdrop.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="editor-title">
+        <h2 id="editor-title">Make every stop hers ✨</h2>
+        <p class="note">Put in real moments and inside jokes. The downloaded HTML will contain your edits for everyone who visits the GitHub page.</p>
+        <form id="editForm">
+          <label class="field">Her name<input name="name" maxlength="35" required value="${escapeHTML(config.name)}"></label>
+          <label class="field">From<input name="from" maxlength="50" required value="${escapeHTML(config.from)}"></label>
+          <label class="field">Inside-joke nickname<input name="nickname" maxlength="70" value="${escapeHTML(config.nickname||'')}"></label>
+          <label class="field">Opening line<textarea name="intro" maxlength="400" required>${escapeHTML(config.intro)}</textarea></label>
+          <details open><summary>Three memory card messages</summary>${config.memories.map((m,i)=>`<label class="field">Memory ${i+1}<textarea name="memory${i}" maxlength="350" required>${escapeHTML(m)}</textarea></label>`).join('')}</details>
+          <details><summary>Personal notes in all ten chapters</summary>${config.chapterNotes.map((m,i)=>`<label class="field">Chapter ${i+1} note<textarea name="chapter${i}" maxlength="400" required>${escapeHTML(m)}</textarea></label>`).join('')}</details>
+          <details><summary>Four future postcards</summary>${config.postcards.map((m,i)=>`<label class="field">Postcard ${i+1}<textarea name="postcard${i}" maxlength="300" required>${escapeHTML(m)}</textarea></label>`).join('')}</details>
+          <label class="field">Your complete final birthday letter<textarea name="finalNote" maxlength="5000" rows="17" required>${escapeHTML(config.finalNote)}</textarea></label>
+          <div class="btn-row"><button class="btn" type="submit">Save & download game</button><button class="btn light" id="closeEditor" type="button">Close</button></div>
+        </form></div>`;
+      document.body.appendChild(backdrop);
+      const close=()=>{backdrop.remove();$('#editBtn').focus()};
+      $('#closeEditor').onclick=close;
+      backdrop.addEventListener('click',e=>{if(e.target===backdrop)close()});
+      backdrop.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+      backdrop.querySelector('input').focus();
+      $('#editForm',backdrop).onsubmit=e=>{
+        e.preventDefault();const data=new FormData(e.currentTarget);
+        config={
+          name:String(data.get('name')).trim(),from:String(data.get('from')).trim(),nickname:String(data.get('nickname')).trim(),intro:String(data.get('intro')).trim(),
+          memories:[0,1,2].map(i=>String(data.get('memory'+i)).trim()),
+          chapterNotes:Array.from({length:10},(_,i)=>String(data.get('chapter'+i)).trim()),
+          postcards:Array.from({length:4},(_,i)=>String(data.get('postcard'+i)).trim()),
+          finalNote:String(data.get('finalNote')).trim()
+        };
+        configNode.textContent=JSON.stringify(config).replace(/</g,'\\u003c');
+        document.title=`${config.name} and the Little Birthday Universe`;
+        close();render();
+        document.body.classList.remove('edit-mode');
+        const html='<!doctype html>\n'+document.documentElement.outerHTML;
+        document.body.classList.add('edit-mode');
+        const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+        const url=URL.createObjectURL(blob),link=document.createElement('a');
+        link.href=url;link.download='index.html';link.click();
+        setTimeout(()=>URL.revokeObjectURL(url),3000);
+      };
+    }
+    $('#soundBtn').onclick=e=>{sound=!sound;e.currentTarget.textContent=sound?'♫ Sound on':'♫ Sound off';e.currentTarget.setAttribute('aria-pressed',String(sound));tone(660)};
+    if(new URLSearchParams(location.search).has('edit')){document.body.classList.add('edit-mode');$('#editBtn').onclick=openEditor}
+    const sky=$('#sky');for(let i=0;i<50;i++){const star=document.createElement('span');star.className='twinkle';star.textContent=i%6===0?'✦':'·';star.style.cssText=`--x:${(i*59.7)%100}%;--y:${(i*31.3+7)%100}%;--s:${i%6===0?12:17}px;--d:${2+i%5}s;--delay:-${i%7}s`;sky.appendChild(star)}
+    render();
+  })();
+  </script>
+</body>
+</html>
